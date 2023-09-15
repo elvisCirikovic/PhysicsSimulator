@@ -22,7 +22,7 @@ public:
 	void setWindowHeight(int height);
 	void setWindowWidth(int width);
 	GLFWwindow* getGLFWWindow();
-
+	
 
 private:
 

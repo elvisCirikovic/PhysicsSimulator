@@ -31,6 +31,9 @@ Shader::Shader(const char* vertexSource, const char* fragmentSource)
 		vertexShaderFile.close();
 		fragmentShaderFile.close();
 
+		vertexCode = vertexShaderStream.str();
+		fragmentCode = fragmentShaderStream.str();
+
 	}
 	catch(std::ifstream::failure e)
 	{
@@ -62,10 +65,10 @@ Shader::Shader(const char* vertexSource, const char* fragmentSource)
 	glShaderSource(fragment, 1, &fragmentShaderCode, NULL);
 	glCompileShader(fragment);
 	//if any, print compile errors for fragment shaders
-	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
+		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 
@@ -76,10 +79,10 @@ Shader::Shader(const char* vertexSource, const char* fragmentSource)
 	glLinkProgram(id);
 
 	//print linking errors if any
-	glGetShaderiv(id, GL_LINK_STATUS, &success);
+	glGetProgramiv(id, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetShaderInfoLog(id, 512, NULL, infoLog);
+		glGetProgramInfoLog(id, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
 
@@ -99,12 +102,12 @@ void Shader::setBool(const std::string& name, bool value) const
 
 void Shader::setFloat(const std::string &name, float value) const
 {
-	glUniform1f(glGetUniformLocation(id, name.c_str()), (int)value);
+	glUniform1f(glGetUniformLocation(id, name.c_str()), value);
 }
 
 void Shader::setInt(const std::string& name, int value) const
 {
-	glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
+	glUniform1i(glGetUniformLocation(id, name.c_str()), value);
 }
 
 Shader::~Shader()

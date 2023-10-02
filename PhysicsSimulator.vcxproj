@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\includes;C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\cciri\Desktop\glfw-3.3.8\build\src\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\includes;C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\cciri\Desktop\glfw-3.3.8\build\src\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\includes;C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\cciri\Desktop\glfw-3.3.8\build\src\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\includes;C:\Users\cciri\Desktop\glfw-3.3.8\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\cciri\Desktop\glfw-3.3.8\build\src\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -155,6 +155,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\testShader.fsc" />
+    <None Include="shaders\testShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h" />

@@ -11,6 +11,10 @@
 
 
 
+
+float DELTA_TIME = 0.0f;
+float LAST_FRAME = 0.0f;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -23,15 +27,12 @@ int main()
 
 
 
-
-
-
 	Window simWindow(800, 600, "test");
 	GLFWwindow* myWindow = simWindow.getGLFWWindow(); //simWindow is the custom created Window class and myWindow is the glfwWindow object derived from the simWindow
 
 	//makes the window
 	glfwMakeContextCurrent(myWindow);
-	
+
 
 	//inits glad before we start using opengl functions
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -44,13 +45,16 @@ int main()
 	//resizes window when user or OS resizes it
 	glfwSetFramebufferSizeCallback(myWindow, framebuffer_size_callback);
 
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	/*float vertices[] = {
 		// positions          // colors           // texture coords
 		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
 		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
 		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
 	};*/
 	glEnable(GL_DEPTH_TEST);
 
@@ -147,28 +151,32 @@ int main()
 	while (!glfwWindowShouldClose(myWindow))
 	{
 		//input
-		simWindow.processInput(myWindow);
+		simWindow.processInput(myWindow, cameraPos, cameraFront, cameraUp);
 
 		//render
 		glClearColor(0.2f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//render container
-		
+
 		wallTexture.bind();
 		shaderProgram.use();
 		\
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		
+			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-		// create transformations
-		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+
+			// create transformations
+			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 		glm::mat4 view = glm::mat4(1.0f);
+		float radius = 10.0f;
+		float camX = static_cast<float>(sin(glfwGetTime()) * radius);
+		float camZ = static_cast<float>(cos(glfwGetTime()) * radius);
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		glm::mat4 projection = glm::mat4(1.0f);
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
-		//model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::perspective(glm::radians(45.0f), (float)simWindow.getWindowWidth() / (float)simWindow.getWindowHeight(), 0.1f, 100.0f);
 		unsigned int modelLoc = glGetUniformLocation(shaderProgram.id, "model");
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram.id, "view");
@@ -181,7 +189,7 @@ int main()
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		
+
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		//buffer swappers and IO events

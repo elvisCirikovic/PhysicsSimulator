@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "Camera.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -17,7 +18,7 @@ public:
 	Window(int height, int width, const char* title);  //constructor
 
 	
-	void processInput(GLFWwindow* window, glm::vec3& cameraPos, glm::vec3& cameraFront, glm::vec3& cameraUp);
+	void processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPos, glm::vec3& cameraFront, glm::vec3& cameraUp);
 
 	//getters and setter functions
 	int getWindowHeight();

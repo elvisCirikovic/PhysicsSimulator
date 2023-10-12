@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Camera.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -8,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "stb_image.h"
 #include "Texture.h"
+#include "globals.h"
 
 
 
@@ -23,8 +25,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 int main()
 {
-
-
 
 
 	Window simWindow(800, 600, "test");
@@ -48,6 +48,8 @@ int main()
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	Camera mainCamera(cameraPos, cameraFront, cameraUp);
 
 	/*float vertices[] = {
 		// positions          // colors           // texture coords
@@ -150,8 +152,20 @@ int main()
 	//keeps running the window until we tell it to stop
 	while (!glfwWindowShouldClose(myWindow))
 	{
+
+		//per frame time logic
+		float currentFrame = static_cast<float>(glfwGetTime());
+		DELTA_TIME = currentFrame - LAST_FRAME;
+		LAST_FRAME = currentFrame;
+
+		//std::cout << "Current Frame is " << currentFrame << std::endl;
+		//std::cout << "Delta Time is  " << DELTA_TIME << std::endl;
+		//std::cout << "Last Frame is  " << LAST_FRAME << std::endl;
+
 		//input
-		simWindow.processInput(myWindow, cameraPos, cameraFront, cameraUp);
+		simWindow.processInput(myWindow, mainCamera, cameraPos, cameraFront, cameraUp);
+
+		std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
 
 		//render
 		glClearColor(0.2f, 0.1f, 0.2f, 1.0f);

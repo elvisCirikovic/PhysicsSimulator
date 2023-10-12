@@ -17,7 +17,8 @@ public:
 
 	Window(int height, int width, const char* title);  //constructor
 
-	
+	bool isFullScreen;
+
 	void processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPos, glm::vec3& cameraFront, glm::vec3& cameraUp);
 
 	//getters and setter functions
@@ -27,7 +28,12 @@ public:
 	void setWindowHeight(int height);
 	void setWindowWidth(int width);
 	GLFWwindow* getGLFWWindow();
+
+	void mouse_callBack(double xpos, double ypos, glm::vec3& cameraFront);
 	
+	float lastX;
+	float lastY;
+
 
 private:
 
@@ -38,6 +44,9 @@ private:
 	int m_width;
 
 	const char* m_title;
+
+	float yaw;
+	float pitch;
 
 };
 

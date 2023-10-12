@@ -27,7 +27,7 @@ int main()
 {
 
 
-	Window simWindow(800, 600, "test");
+	Window simWindow(1200, 800, "test");
 	GLFWwindow* myWindow = simWindow.getGLFWWindow(); //simWindow is the custom created Window class and myWindow is the glfwWindow object derived from the simWindow
 
 	//makes the window
@@ -40,7 +40,7 @@ int main()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 	}
 	//telling openGL the size of the rendering window
-	glViewport(0, 0, simWindow.getWindowHeight(), simWindow.getWindowWidth());
+	glViewport(0, 0, simWindow.getWindowWidth(), simWindow.getWindowHeight());
 
 	//resizes window when user or OS resizes it
 	glfwSetFramebufferSizeCallback(myWindow, framebuffer_size_callback);
@@ -59,6 +59,8 @@ int main()
 		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
 	};*/
 	glEnable(GL_DEPTH_TEST);
+
+	glfwSetInputMode(myWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	float vertices[] = {
 		// Positions          // Texture coordinates
@@ -164,6 +166,12 @@ int main()
 
 		//input
 		simWindow.processInput(myWindow, mainCamera, cameraPos, cameraFront, cameraUp);
+		//simWindow.mouse_callBack(1.0, 2.0, cameraFront);
+		double mouseX, mouseY;
+		glfwGetCursorPos(myWindow, &mouseX, &mouseY);
+		simWindow.mouse_callBack(mouseX, mouseY, cameraFront);
+		
+
 
 		std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
 
@@ -175,12 +183,12 @@ int main()
 
 		wallTexture.bind();
 		shaderProgram.use();
-		\
+		
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 
 			// create transformations
-			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 		glm::mat4 view = glm::mat4(1.0f);
 		float radius = 10.0f;
 		float camX = static_cast<float>(sin(glfwGetTime()) * radius);

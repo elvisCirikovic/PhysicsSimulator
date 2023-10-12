@@ -32,7 +32,12 @@ Window::Window(int width, int height, const char* title) : m_width(width), m_hei
 		glfwTerminate();
 	}
 
-	
+	lastX = width / 2;
+	lastY = height / 2;
+	yaw = -90.0f;
+	pitch = 0.0f;
+
+	isFullScreen = false;
 }
 
 
@@ -62,6 +67,22 @@ void Window::processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPo
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL))
+	{
+		if (!isFullScreen)
+		{
+			//switch to full screen mode
+			glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, GLFW_DONT_CARE);
+			isFullScreen = true;
+		}
+		else
+		{
+			//switch to window mode
+			glfwSetWindowMonitor(window, nullptr, 100, 100, m_width, m_height, GLFW_DONT_CARE);
+			isFullScreen = false;
+		}
+
 	}
 }
 
@@ -93,6 +114,43 @@ void Window::setWindowWidth(int width)
 GLFWwindow* Window::getGLFWWindow()
 {
 	return m_window;
+}
+
+void Window::mouse_callBack(double xpos, double ypos, glm::vec3& cameraFront)
+{
+	if (FIRST_MOUSE)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		FIRST_MOUSE = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; //reversed since y coords range from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	const float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	if (pitch > 89.0f)
+	{
+		pitch = 89.0f;
+	}
+	else if (pitch < -89.0f)
+	{
+		pitch = -89.0f;
+	}
+
+	glm::vec3 direction;
+	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.y = sin(glm::radians(pitch));
+	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(direction);
 }
 
 

@@ -1,2 +1,15 @@
-﻿  main.cpp
+﻿  Camera.cpp
+  Shader.cpp
+  Texture.cpp
+  Window.cpp
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(35,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(36,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(123,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(124,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(128,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(129,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(130,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(131,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  LINK : C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\x64\Debug\PhysicsSimulator.exe not found or not built by the last incremental link; performing full link
   PhysicsSimulator.vcxproj -> C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\x64\Debug\PhysicsSimulator.exe

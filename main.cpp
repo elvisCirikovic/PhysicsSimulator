@@ -10,6 +10,7 @@
 #include "stb_image.h"
 #include "Texture.h"
 #include "globals.h"
+#include "Cube.h"
 
 
 
@@ -51,13 +52,7 @@ int main()
 
 	Camera mainCamera(cameraPos, cameraFront, cameraUp);
 
-	/*float vertices[] = {
-		// positions          // colors           // texture coords
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
-	};*/
+
 	glEnable(GL_DEPTH_TEST);
 
 	glfwSetInputMode(myWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -148,6 +143,7 @@ int main()
 
 	Texture wallTexture("wall.jpg");
 
+	Cube testCube;
 
 
 
@@ -184,7 +180,8 @@ int main()
 		wallTexture.bind();
 		shaderProgram.use();
 		
-			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		testCube.Draw(shaderProgram, wallTexture);
+		
 
 
 			// create transformations
@@ -209,8 +206,8 @@ int main()
 		shaderProgram.setMat4("projection", projection);
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
+		// UNCOMMENT SOON glDrawArrays(GL_TRIANGLES, 0, 36);
+	
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 

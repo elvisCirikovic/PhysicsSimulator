@@ -102,10 +102,7 @@ int main()
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	/*unsigned int indices[] = {
-		0, 1, 2, // First triangle
-		2, 3, 0  // Second triangle
-	};*/
+
 	unsigned int VBO; //stores a large number of vertices in GPU memory
 	glGenBuffers(1, &VBO); //generates a buffer id
 	glBindBuffer(GL_ARRAY_BUFFER, VBO); //binds vbo to GL_ARRAY_BUFFER
@@ -169,7 +166,7 @@ int main()
 		
 
 
-		std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
+		//std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
 
 		//render
 		glClearColor(0.2f, 0.1f, 0.2f, 1.0f);
@@ -177,10 +174,10 @@ int main()
 
 		//render container
 
-		wallTexture.bind();
-		shaderProgram.use();
+		// UNCOMMENT SOON wallTexture.bind();
+		// UNCOMMENT SOON shaderProgram.use();
 		
-		testCube.Draw(shaderProgram, wallTexture);
+		testCube.Draw(shaderProgram);
 		
 
 
@@ -193,9 +190,9 @@ int main()
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		glm::mat4 projection = glm::mat4(1.0f);
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		
 
-
-		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::perspective(glm::radians(45.0f), (float)simWindow.getWindowWidth() / (float)simWindow.getWindowHeight(), 0.1f, 100.0f);
 		unsigned int modelLoc = glGetUniformLocation(shaderProgram.id, "model");
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram.id, "view");
@@ -206,10 +203,10 @@ int main()
 		shaderProgram.setMat4("projection", projection);
 
 		glBindVertexArray(VAO);
-		// UNCOMMENT SOON glDrawArrays(GL_TRIANGLES, 0, 36);
+
 	
 
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		
 
 		//buffer swappers and IO events
 		glfwSwapBuffers(myWindow);

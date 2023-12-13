@@ -3,5 +3,5 @@
 class Shape 
 {
 public:
-	virtual void Draw(Shader& shader, Texture& texture) const = 0;
+	virtual void Draw(Shader& shader) const = 0;
 };

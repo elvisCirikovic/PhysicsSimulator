@@ -38,6 +38,7 @@ void Texture::bind(GLenum textureUnit) const
 {
     glActiveTexture(textureUnit);
     glBindTexture(target, textureID);
+    
 }
 
 void Texture::unbind() const

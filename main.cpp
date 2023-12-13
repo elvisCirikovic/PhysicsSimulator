@@ -112,7 +112,7 @@ int main()
 		
 
 
-			// create transformations
+		// create transformations
 		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 		glm::mat4 view = glm::mat4(1.0f);
 		float radius = 10.0f;
@@ -128,12 +128,8 @@ int main()
 		projection = glm::perspective(glm::radians(45.0f), (float)simWindow.getWindowWidth() / (float)simWindow.getWindowHeight(), 0.1f, 100.0f);
 		unsigned int modelLoc = glGetUniformLocation(shaderProgram.id, "model");
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram.id, "view");
-		// pass them to the shaders (3 different ways)
 		shaderProgram.setMat4("model", model);
 		shaderProgram.setMat4("view", view);
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-		// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 		shaderProgram.setMat4("projection", projection);
 
 		

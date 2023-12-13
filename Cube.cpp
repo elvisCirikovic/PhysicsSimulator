@@ -81,12 +81,7 @@ Cube::Cube()
 
 void Cube::Draw(Shader& shader) const
 {
-	/* TODO:
-	*  Set the position of the Cube to the position value
-	*  Will be constantly updated since this Draw method is called each frame in the main while loop
-	*  USE RESOURCE BELOW
-	*  https://learnopengl.com/Getting-started/Coordinate-Systems
-	*/
+
 
 	shader.use();
 

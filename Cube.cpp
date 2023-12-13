@@ -81,15 +81,24 @@ Cube::Cube()
 
 void Cube::Draw(Shader& shader) const
 {
+	/* TODO:
+	*  Set the position of the Cube to the position value
+	*  Will be constantly updated since this Draw method is called each frame in the main while loop
+	*  USE RESOURCE BELOW
+	*  https://learnopengl.com/Getting-started/Coordinate-Systems
+	*/
+
 	shader.use();
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
+
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, position);
-	unsigned int modelLoc = glGetUniformLocation(shader.id, "model");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	shader.setMat4("model", model);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+
+
 }
 
 void Cube::setPosition(const glm::vec3& newPosition)

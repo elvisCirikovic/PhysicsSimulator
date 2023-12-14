@@ -4,4 +4,5 @@ class Shape
 {
 public:
 	virtual void Draw(Shader& shader) const = 0;
+	virtual ~Shape() = default;
 };

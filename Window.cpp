@@ -12,6 +12,9 @@
 //GLOBAL VARIABLE(S)
 double lastPressed = 0.0;
 double lastPressedFullScreen = 0.0;
+double savedCursorX = 0.0;
+double savedCursorY = 0.0;
+bool cursorCaptured = false;
 
 Window::Window(int width, int height, const char* title) : m_width(width), m_height(height), m_title(title)
 {
@@ -75,7 +78,7 @@ void Window::processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPo
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 
-	if (currentTime - lastPressedFullScreen >= 0.5)
+	if (currentTime - lastPressedFullScreen >= 0.3) //swaps from full screen to window and vice versa, there is a timer between each window mode
 	{
 		lastPressedFullScreen = currentTime;
 		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL))
@@ -98,7 +101,7 @@ void Window::processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPo
 	}
 
 
-	if (currentTime - lastPressed >= 0.5)
+	if (currentTime - lastPressed >= 0.5) //swaps cursor mode, makes it so there has to be a timer between each cursor mode swap
 	{
 		if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
 		{
@@ -106,11 +109,20 @@ void Window::processInput(GLFWwindow* window, Camera camera, glm::vec3& cameraPo
 			int currentCursorMode = glfwGetInputMode(window, GLFW_CURSOR);
 			if (currentCursorMode == GLFW_CURSOR_NORMAL)
 			{
+				//save cursor position before switching to GLFW_CURSOR_DISABLED
+				glfwGetCursorPos(window, &savedCursorX, &savedCursorY);
+				cursorCaptured = true;
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //5 is disabled
 			}
 			else
 			{
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				if (cursorCaptured)
+				{
+					//restore cursor position if it was captured
+					glfwSetCursorPos(window, savedCursorX, savedCursorY);
+					cursorCaptured = false;
+				}
 			}
 
 		}

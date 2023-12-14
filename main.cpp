@@ -1,7 +1,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include <vector>
 #include "Window.h"
 #include "Camera.h"
 #include <iostream>
@@ -76,8 +76,9 @@ int main()
 
 	Texture wallTexture("wall.jpg");
 
-	Cube testCube;
 
+
+	std::vector<std::unique_ptr<Shape>> shapes; //stores all shapes
 
 
 	//keeps running the window until we tell it to stop
@@ -100,8 +101,6 @@ int main()
 		glfwGetCursorPos(myWindow, &mouseX, &mouseY);
 		simWindow.mouse_callBack(myWindow, mouseX, mouseY, cameraFront);
 		
-		int tempCursorMode = glfwGetInputMode(myWindow, GLFW_CURSOR);
-		std::cout << tempCursorMode << std::endl;
 
 		//std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
 
@@ -116,15 +115,17 @@ int main()
 
 		//render container
 
-		glm::vec3 temporaryVector = testCube.getPosition(testCube);
 
-		//this is just a test, trying to move the cube slightly along the x plane
-		//std::cout << "Cube's Position is: (" << temporaryVector.x << "," << temporaryVector.y << "," << temporaryVector.z << ")\n";
-
-		testCube.setPosition(glm::vec3(temporaryVector.x+.0005,temporaryVector.y,temporaryVector.z));
-
-		testCube.Draw(shaderProgram);
 		
+		//GUI FUNCTIONALITY HERE
+		ImGui::Begin("Create");
+		if (ImGui::Button("Cube"))
+		{
+			std::cout << "spawned a cube" << std::endl;
+			shapes.push_back(std::make_unique<Cube>());
+			
+
+		}
 
 
 		// create transformations
@@ -149,14 +150,16 @@ int main()
 
 		
 
-	
-
-		ImGui::Begin("Test Window");
-		ImGui::Text("i pray this works");
 		ImGui::End();
+
+		for (const auto& Shape: shapes)
+		{
+			Shape->Draw(shaderProgram);
+		}
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 
 		//buffer swappers and IO events
 		glfwSwapBuffers(myWindow);

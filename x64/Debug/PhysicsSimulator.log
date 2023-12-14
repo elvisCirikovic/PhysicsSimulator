@@ -1,2 +1,10 @@
-﻿  main.cpp
+﻿  Window.cpp
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(39,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(40,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(155,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(156,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(162,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(163,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(164,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\Window.cpp(165,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   PhysicsSimulator.vcxproj -> C:\Users\cciri\Desktop\C++ projects mayb eidk\PhysicsSimulator\x64\Debug\PhysicsSimulator.exe

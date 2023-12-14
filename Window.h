@@ -29,7 +29,7 @@ public:
 	void setWindowWidth(int width);
 	GLFWwindow* getGLFWWindow();
 
-	void mouse_callBack(double xpos, double ypos, glm::vec3& cameraFront);
+	void mouse_callBack(GLFWwindow* window, double xpos, double ypos, glm::vec3& cameraFront);
 	
 	float lastX;
 	float lastY;

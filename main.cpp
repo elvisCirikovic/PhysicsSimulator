@@ -61,7 +61,7 @@ int main()
 
 
 	//disables cursor in the window
-	glfwSetInputMode(myWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	
 
 	//GUI INIT BELOW 
 	IMGUI_CHECKVERSION();
@@ -98,9 +98,10 @@ int main()
 		//simWindow.mouse_callBack(1.0, 2.0, cameraFront);
 		double mouseX, mouseY;
 		glfwGetCursorPos(myWindow, &mouseX, &mouseY);
-		simWindow.mouse_callBack(mouseX, mouseY, cameraFront);
+		simWindow.mouse_callBack(myWindow, mouseX, mouseY, cameraFront);
 		
-
+		int tempCursorMode = glfwGetInputMode(myWindow, GLFW_CURSOR);
+		std::cout << tempCursorMode << std::endl;
 
 		//std::cout << "Actual Camera pos is: (" << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << ")\n";
 
@@ -118,7 +119,7 @@ int main()
 		glm::vec3 temporaryVector = testCube.getPosition(testCube);
 
 		//this is just a test, trying to move the cube slightly along the x plane
-		std::cout << "Cube's Position is: (" << temporaryVector.x << "," << temporaryVector.y << "," << temporaryVector.z << ")\n";
+		//std::cout << "Cube's Position is: (" << temporaryVector.x << "," << temporaryVector.y << "," << temporaryVector.z << ")\n";
 
 		testCube.setPosition(glm::vec3(temporaryVector.x+.0005,temporaryVector.y,temporaryVector.z));
 

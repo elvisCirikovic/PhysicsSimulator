@@ -1,3 +1,7 @@
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #include "Window.h"
 #include "Camera.h"
 #include <iostream>
@@ -59,8 +63,13 @@ int main()
 	//disables cursor in the window
 	glfwSetInputMode(myWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-
-
+	//GUI INIT BELOW 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(myWindow, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 
 	Shader shaderProgram("shaders/testShader.vs", "shaders/testShader.fsc");
 
@@ -99,6 +108,11 @@ int main()
 		glClearColor(0.2f, 0.1f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//SIMPLE WINDOW TEST
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
 		//render container
 
 		glm::vec3 temporaryVector = testCube.getPosition(testCube);
@@ -136,12 +150,23 @@ int main()
 
 	
 
-		
+		ImGui::Begin("Test Window");
+		ImGui::Text("i pray this works");
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		//buffer swappers and IO events
 		glfwSwapBuffers(myWindow);
 		glfwPollEvents();
 	}
+
+	//destroying the gui after the main loop is finished
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwTerminate();
 	return 0;
 }
